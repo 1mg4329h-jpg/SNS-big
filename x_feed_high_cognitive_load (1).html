@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ja" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>X / Twitter - High Cognitive Load Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            xDark: '#000000',
+            xCard: '#16181c',
+            xBorder: '#2f3336',
+            xBlue: '#1d9bf0',
+            xGold: '#e7a33e'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes pulse-fast {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .animate-pulse-fast { animation: pulse-fast 0.8s infinite; }
+    .animate-marquee { display: inline-block; white-space: nowrap; animation: marquee 10s linear infinite; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-black text-gray-100 font-sans antialiased selection:bg-xBlue selection:text-white">
+
+  <!-- 1. 最上部：緊急速報＆広告テロップ（認知負荷高） -->
+  <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-purple-900 text-white text-xs font-bold py-1 px-3 flex justify-between items-center sticky top-0 z-50 border-b border-xBorder">
+    <div class="overflow-hidden w-full mr-2">
+      <div class="animate-marquee">
+        🚨 【トレンド1位】#スタバ新作 ほうじ茶フラペチーノ本日発売！ | ⚡️ 26卒早期選考エントリー締め切りまであと2時間 | ⚠️ 【障害情報】API制限により一部インプレッション数が正常に表示されません | 🎓 単位落とした人集合
+      </div>
+    </div>
+    <span class="bg-red-600 text-white text-[9px] px-2 py-0.5 rounded-full shrink-0 animate-pulse-fast">速報</span>
+  </div>
+
+  <!-- 2. フローティング X Space（音声ライブ）バナー（画面右上に固定） -->
+  <div class="fixed top-12 right-4 z-40 bg-xCard border border-purple-500/50 p-2.5 rounded-2xl shadow-2xl max-w-[220px] backdrop-blur-md">
+    <div class="flex items-center justify-between mb-1.5">
+      <div class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+        <span class="text-[10px] font-bold text-purple-400">スペース開催中</span>
+      </div>
+      <span class="text-[9px] text-gray-400">🎙️ 2.4k人</span>
+    </div>
+    <p class="text-xs font-bold text-white truncate">【26卒】深夜のガクチカ添削＆面接リアル反省会</p>
+    <div class="flex items-center gap-1 mt-2">
+      <div class="flex -space-x-2">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50&auto=format&fit=crop&q=80" class="w-5 h-5 rounded-full border border-black" />
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=50&auto=format&fit=crop&q=80" class="w-5 h-5 rounded-full border border-black" />
+      </div>
+      <button class="ml-auto bg-purple-600 hover:bg-purple-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full transition">リスナーで参加</button>
+    </div>
+  </div>
+
+  <!-- 全体レイアウト（3カラム風） -->
+  <div class="max-w-6xl mx-auto flex justify-center min-h-screen">
+
+    <!-- 左サイドバー（ナビゲーション） -->
+    <header class="w-16 xl:w-64 p-2 flex flex-col justify-between sticky top-8 h-[calc(100vh-32px)] border-r border-xBorder shrink-0">
+      <div class="space-y-4">
+        <!-- ロゴ -->
+        <div class="p-2 text-2xl font-black text-white hover:bg-gray-900 rounded-full w-fit cursor-pointer flex items-center gap-3">
+          <i class="fa-brands fa-x-twitter"></i>
+          <span class="hidden xl:inline text-xl font-bold">X</span>
+        </div>
+
+        <!-- ナビメニュー（バッジ過多） -->
+        <nav class="space-y-1 text-lg font-semibold">
+          <a href="#" class="flex items-center gap-4 p-3 hover:bg-gray-900 rounded-full text-white font-bold">
+            <i class="fa-solid fa-house"></i>
+            <span class="hidden xl:inline">ホーム</span>
+          </a>
+          <a href="#" class="flex items-center gap-4 p-3 hover:bg-gray-900 rounded-full text-gray-300 relative">
+            <i class="fa-solid fa-hashtag"></i>
+            <span class="hidden xl:inline">話題を検索</span>
+            <span class="absolute top-2 left-6 bg-xBlue text-white text-[9px] font-bold px-1 rounded">HOT</span>
+          </a>
+          <a href="#" class="flex items-center gap-4 p-3 hover:bg-gray-900 rounded-full text-gray-300 relative">
+            <div class="relative">
+              <i class="fa-regular fa-bell"></i>
+              <span class="absolute -top-1.5 -right-2 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full animate-pulse-fast">99+</span>
+            </div>
+            <span class="hidden xl:inline">通知</span>
+          </a>
+          <a href="#" class="flex items-center gap-4 p-3 hover:bg-gray-900 rounded-full text-gray-300 relative">
+            <div class="relative">
+              <i class="fa-regular fa-envelope"></i>
+              <span class="absolute -top-1 -right-1 bg-xBlue text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">14</span>
+            </div>
+            <span class="hidden xl:inline">メッセージ</span>
+          </a>
+          <a href="#" class="flex items-center gap-4 p-3 hover:bg-gray-900 rounded-full text-gray-300">
+            <i class="fa-regular fa-bookmark"></i>
+            <span class="hidden xl:inline">ブックマーク</span>
+          </a>
+          <a href="#" class="flex items-center gap-4 p-3 hover:bg-gray-900 rounded-full text-gray-300">
+            <i class="fa-solid fa-users"></i>
+            <span class="hidden xl:inline">コミュニティ</span>
+          </a>
+          <a href="#" class="flex items-center gap-4 p-3 hover:bg-gray-900 rounded-full text-xGold font-bold">
+            <i class="fa-solid fa-certificate"></i>
+            <span class="hidden xl:inline">Premium+</span>
+          </a>
+        </nav>
+
+        <button class="w-full bg-xBlue hover:bg-blue-500 text-white font-bold py-3 rounded-full hidden xl:block shadow-lg">
+          ポストする
+        </button>
+      </div>
+
+      <!-- アカウント切り替え -->
+      <div class="flex items-center justify-between p-2 hover:bg-gray-900 rounded-full cursor-pointer">
+        <div class="flex items-center gap-2">
+          <!-- スタバ風ユーザーアイコン -->
+          <div class="w-10 h-10 rounded-full bg-emerald-800 border-2 border-emerald-500 flex items-center justify-center text-white text-lg font-bold shrink-0">
+            <i class="fa-solid fa-mug-hot"></i>
+          </div>
+          <div class="hidden xl:block text-left text-xs">
+            <p class="font-bold text-white flex items-center gap-1">
+              みく@26卒就活中
+              <i class="fa-solid fa-circle-check text-xBlue text-[10px]"></i>
+            </p>
+            <p class="text-gray-500">@miku_starba_26</p>
+          </div>
+        </div>
+        <i class="fa-solid fa-ellipsis text-gray-500 hidden xl:block"></i>
+      </div>
+    </header>
+
+    <!-- 中央：タイムラインメインフィード -->
+    <main class="w-full max-w-xl border-r border-xBorder min-h-screen">
+      
+      <!-- ヘッダータブ -->
+      <div class="sticky top-8 bg-black/80 backdrop-blur-md border-b border-xBorder z-30 flex">
+        <button class="w-1/2 py-3.5 text-center font-bold text-sm text-white border-b-4 border-xBlue relative">
+          おすすめ
+          <span class="absolute top-2 right-8 w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
+        </button>
+        <button class="w-1/2 py-3.5 text-center font-bold text-sm text-gray-500 hover:bg-gray-900 relative">
+          フォロー中
+          <span class="ml-1 bg-gray-800 text-gray-300 text-[10px] px-1.5 py-0.5 rounded-full">342</span>
+        </button>
+      </div>
+
+      <!-- ポスト投稿枠（入力UI） -->
+      <div class="p-3 border-b border-xBorder flex gap-3">
+        <div class="w-10 h-10 rounded-full bg-emerald-800 border border-emerald-500 flex items-center justify-center text-white shrink-0">
+          <i class="fa-solid fa-mug-hot"></i>
+        </div>
+        <div class="w-full">
+          <textarea class="w-full bg-transparent text-white placeholder-gray-500 text-sm focus:outline-none resize-none" rows="2" placeholder="いまどうしてる？（スタバ新作/テスト爆死/就活の病みつぶやき）"></textarea>
+          
+          <!-- ドラフトタグ選択ボタン群 -->
+          <div class="flex gap-1 mb-2 overflow-x-auto no-scrollbar">
+            <span class="bg-gray-900 border border-gray-700 text-xs px-2 py-0.5 rounded-full text-xBlue cursor-pointer">#スタバ新作</span>
+            <span class="bg-gray-900 border border-gray-700 text-xs px-2 py-0.5 rounded-full text-xBlue cursor-pointer">#単位危険</span>
+            <span class="bg-gray-900 border border-gray-700 text-xs px-2 py-0.5 rounded-full text-xBlue cursor-pointer">#26卒就活</span>
+            <span class="bg-gray-900 border border-gray-700 text-xs px-2 py-0.5 rounded-full text-xBlue cursor-pointer">#推し活</span>
+          </div>
+
+          <div class="flex justify-between items-center pt-2 border-t border-gray-900">
+            <div class="flex gap-3 text-xBlue text-sm">
+              <i class="fa-regular fa-image"></i>
+              <i class="fa-solid fa-square-poll-horizontal"></i>
+              <i class="fa-regular fa-face-smile"></i>
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <button class="bg-xBlue text-white font-bold text-xs px-4 py-1.5 rounded-full opacity-60">ポストする</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- タイムライン項目 1：スタバ新作・単位落単・26卒就活の混沌ツイート -->
+      <article class="p-3 border-b border-xBorder hover:bg-white/[0.01] transition">
+        
+        <!-- コンテキスト（リツイート・ピン留めなど） -->
+        <div class="flex items-center gap-2 text-xs font-bold text-gray-500 mb-1.5 ml-6">
+          <i class="fa-solid fa-thumbtack text-gray-400"></i>
+          <span>固定されたポスト</span>
+          <span class="bg-purple-900/60 text-purple-300 text-[9px] px-1.5 py-0.5 rounded ml-auto">トレンド連動中</span>
+        </div>
+
+        <div class="flex gap-3">
+          <!-- スタバ風アイコン -->
+          <div class="w-10 h-10 rounded-full bg-emerald-700 border-2 border-emerald-400 flex items-center justify-center text-white font-bold shrink-0 relative">
+            <i class="fa-solid fa-mug-saucer"></i>
+            <span class="absolute -bottom-1 -right-1 bg-xBlue text-white text-[8px] rounded-full w-4 h-4 flex items-center justify-center">✓</span>
+          </div>
+
+          <div class="w-full text-xs">
+            <!-- ユーザー情報＋各種バッジ -->
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1 flex-wrap">
+                <span class="font-bold text-white text-sm">ゆーき☕️カフェ巡り×26卒就活</span>
+                <i class="fa-solid fa-circle-check text-xBlue"></i>
+                <span class="bg-yellow-500/20 text-yellow-400 border border-yellow-500/40 text-[9px] px-1 rounded">ゴールド公式</span>
+                <span class="text-gray-500">@yuki_cafe_univ</span>
+                <span class="text-gray-500">• 12分</span>
+              </div>
+              <i class="fa-solid fa-ellipsis text-gray-500"></i>
+            </div>
+
+            <!-- ツイート本文 -->
+            <p class="mt-1 text-gray-200 text-sm leading-relaxed">
+              スタバの新作「ほうじ茶クラシックフラペチーノ」朝一で飲んできた！！🥤✨<br>
+              ホイップ多め＆チョコソース追加カスタム飛ぶぞ…！<br><br>
+              それはそうと、明日のマクロ経済学のテストガチで何も書いてなくて死んでるんだが😭 単位落としたら留年確定です対戦ありがとうございました。どなたか過去問持っていませんか…あとESの「学生時代に力を入れたこと」800字が一生埋まりません助けてくださいおねがいします
+            </p>
+
+            <!-- 画像ギャラリー（2枚＋タグ付け＋オーバーレイバッジ） -->
+            <div class="mt-2 grid grid-cols-2 gap-1 rounded-2xl overflow-hidden border border-xBorder relative">
+              <div class="relative aspect-video bg-gray-800">
+                <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&auto=format&fit=crop&q=80" class="w-full h-full object-cover" />
+                <span class="absolute bottom-1 left-1 bg-black/70 text-white text-[9px] px-1.5 py-0.5 rounded">📍 スターバックス 渋谷店</span>
+              </div>
+              <div class="relative aspect-video bg-gray-800">
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&auto=format&fit=crop&q=80" class="w-full h-full object-cover" />
+                <span class="absolute bottom-1 right-1 bg-red-600/90 text-white text-[9px] font-bold px-1.5 py-0.5 rounded animate-pulse">絶望のノート</span>
+              </div>
+            </div>
+
+            <!-- ⚠️ コミュニティノート（情報過多フラグ） -->
+            <div class="mt-2 bg-xCard border border-yellow-600/40 p-2.5 rounded-xl">
+              <div class="flex items-center gap-1.5 text-yellow-500 font-bold text-[11px] mb-1">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>背景情報（コミュニティノート）</span>
+              </div>
+              <p class="text-gray-300 text-[11px]">
+                スターバックスのほうじ茶フラペチーノは過去問の代用にはなりません。単位取得にはシラバスに従った学習が必要です。
+              </p>
+            </div>
+
+            <!-- エンゲージメントカウンター -->
+            <div class="flex justify-between items-center mt-3 text-gray-500 text-xs">
+              <div class="flex items-center gap-1 hover:text-xBlue cursor-pointer">
+                <i class="fa-regular fa-comment"></i>
+                <span>482</span>
+              </div>
+              <div class="flex items-center gap-1 hover:text-green-500 cursor-pointer">
+                <i class="fa-solid fa-retweet"></i>
+                <span>1.2k</span>
+              </div>
+              <div class="flex items-center gap-1 hover:text-pink-500 text-pink-500 font-bold cursor-pointer">
+                <i class="fa-solid fa-heart"></i>
+                <span>8.4k</span>
+              </div>
+              <div class="flex items-center gap-1 hover:text-xBlue cursor-pointer">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>34.2万</span>
+              </div>
+              <div class="flex gap-3">
+                <i class="fa-regular fa-bookmark hover:text-xBlue cursor-pointer"></i>
+                <i class="fa-solid fa-share-nodes hover:text-xBlue cursor-pointer"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- タイムライン項目 2：プロモーション＋アンケートカード＋インプ稼ぎBotの返信群 -->
+      <article class="p-3 border-b border-xBorder bg-blue-950/10">
+        <div class="flex items-center gap-2 text-xs text-gray-500 mb-1 ml-6">
+          <i class="fa-solid fa-arrow-trend-up text-xBlue"></i>
+          <span>プロモーションポスト</span>
+        </div>
+
+        <div class="flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold shrink-0">
+            PR
+          </div>
+          <div class="w-full text-xs">
+            <div class="flex items-center gap-1">
+              <span class="font-bold text-white text-sm">マイナビ就活2026【公式】</span>
+              <i class="fa-solid fa-circle-check text-xBlue"></i>
+              <span class="text-gray-500">@mynavi_2026</span>
+            </div>
+            <p class="mt-1 text-gray-200 text-sm">
+              【残り枠わずか】大手IT・商社の早期内定ルートスカウトが届く！面接官の本音を聞ける特別WEBセミナー無料ご招待🚀
+            </p>
+
+            <!-- 投票カード（アンケートUI） -->
+            <div class="mt-2.5 bg-xCard p-3 rounded-2xl border border-xBorder space-y-2">
+              <p class="font-bold text-white">Q. 夏インターンのエントリー何社出しましたか？</p>
+              <div class="space-y-1.5">
+                <button class="w-full bg-gray-800 hover:bg-gray-700 text-left p-2 rounded-xl flex justify-between items-center text-xs">
+                  <span>1〜5社</span>
+                  <span class="text-gray-400">22%</span>
+                </button>
+                <button class="w-full bg-xBlue/20 border border-xBlue text-left p-2 rounded-xl flex justify-between items-center text-xs font-bold text-white">
+                  <span>6〜15社（最多）</span>
+                  <span class="text-xBlue">58%</span>
+                </button>
+                <button class="w-full bg-gray-800 hover:bg-gray-700 text-left p-2 rounded-xl flex justify-between items-center text-xs">
+                  <span>16社以上</span>
+                  <span class="text-gray-400">20%</span>
+                </button>
+              </div>
+              <p class="text-[10px] text-gray-500">14,829票 • 残り2時間</p>
+            </div>
+
+            <!-- アクション -->
+            <div class="flex justify-between items-center mt-3 text-gray-500 text-xs">
+              <span class="hover:text-xBlue"><i class="fa-regular fa-comment"></i> 102</span>
+              <span class="hover:text-green-500"><i class="fa-solid fa-retweet"></i> 450</span>
+              <span class="hover:text-pink-500"><i class="fa-regular fa-heart"></i> 2.1k</span>
+              <span class="hover:text-xBlue"><i class="fa-solid fa-chart-column"></i> 12.8万</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- タイムライン項目 3：ネストされた引用ポスト（引用の中に引用）＋サークル飲み会 -->
+      <article class="p-3 border-b border-xBorder">
+        <div class="flex gap-3">
+          <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover shrink-0" />
+          <div class="w-full text-xs">
+            <div class="flex items-center gap-1">
+              <span class="font-bold text-white text-sm">しゅんた@オール飲み</span>
+              <span class="text-gray-500">@shunta_aloha • 1時間</span>
+            </div>
+            <p class="mt-1 text-gray-200 text-sm">
+              サークルの新歓打ち上げ楽しすぎて腹ちぎれたwww 2次会カラオケ→3次会居酒屋→4次会油そばコース完走🍜 明日全休で本当に良かった。
+            </p>
+
+            <!-- 1重目の引用ツイート -->
+            <div class="mt-2 p-2.5 rounded-2xl border border-xBorder bg-xCard">
+              <div class="flex items-center gap-1 text-[11px] mb-1">
+                <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=50&auto=format&fit=crop&q=80" class="w-4 h-4 rounded-full" />
+                <span class="font-bold text-white">健太</span>
+                <span class="text-gray-500">@kento_aloha</span>
+              </div>
+              <p class="text-gray-300 text-[11px]">昨日の飲み会で誰かの傘間違えて持って帰ったかもしれない…心当たりのある人DMください🙏</p>
+
+              <!-- 2重目の引用ツイート（ネストによる視覚的混雑） -->
+              <div class="mt-2 p-2 rounded-xl border border-gray-800 bg-black/50 text-[10px]">
+                <div class="flex items-center gap-1 text-gray-400 mb-0.5">
+                  <span class="font-bold text-gray-300">サークル公式アナウンス</span>
+                  <span>@aloha_dance_club</span>
+                </div>
+                <p class="text-gray-400 truncate">【重要】本日19時からの新歓打ち上げに参加するメンバーは遅刻厳禁でお願いします！</p>
+              </div>
+            </div>
+
+            <!-- リプライ欄のインプゾンビBot（認知負荷） -->
+            <div class="mt-2 pt-2 border-t border-gray-900 bg-gray-950/40 p-2 rounded-xl space-y-1.5">
+              <p class="text-[10px] text-gray-500 font-bold">返信欄のBotポスト（スパム多発中）</p>
+              <div class="flex items-center gap-1 text-[10px] text-gray-400">
+                <span class="font-bold text-white">Crypto_Master99</span>
+                <i class="fa-solid fa-circle-check text-xBlue text-[8px]"></i>
+                <span>Great party! Check out my bio for free Bitcoin! 🚀🔥</span>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center mt-3 text-gray-500 text-xs">
+              <span><i class="fa-regular fa-comment"></i> 18</span>
+              <span><i class="fa-solid fa-retweet"></i> 89</span>
+              <span><i class="fa-regular fa-heart"></i> 412</span>
+              <span><i class="fa-solid fa-chart-column"></i> 1.8万</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- タイムライン項目 4：深夜居酒屋バイトのワンオペ爆死＆給料日歓喜 -->
+      <article class="p-3 border-b border-xBorder hover:bg-white/[0.01] transition">
+        <div class="flex gap-3">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover shrink-0" />
+          <div class="w-full text-xs">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1">
+                <span class="font-bold text-white text-sm">たくみ@鳥〇貴族バイト戦士</span>
+                <span class="text-gray-500">@takumi_izakaya • 2時間</span>
+              </div>
+              <i class="fa-solid fa-ellipsis text-gray-500"></i>
+            </div>
+            <p class="mt-1 text-gray-200 text-sm leading-relaxed">
+              金曜夜の鳥貴ワンオペキッチンでビールサーバー故障＋注文50件同時発生して店長と2人で白目剥いてた😇😇<br>
+              でも今月の給料16万入ってて一瞬で笑顔になった件ｗｗｗ<br>
+              これで今週末のスタバ新作カスタム全種類制覇＆推しの限定アクスタ買い占めます対戦ありがとうございました💸🔥
+            </p>
+
+            <div class="mt-2 rounded-2xl overflow-hidden border border-xBorder max-h-52 relative">
+              <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80" class="w-full h-full object-cover" />
+              <span class="absolute top-2 left-2 bg-emerald-600 text-white font-bold text-[9px] px-2 py-0.5 rounded-full">給料日ハイ</span>
+            </div>
+
+            <div class="flex justify-between items-center mt-3 text-gray-500 text-xs">
+              <span class="hover:text-xBlue"><i class="fa-regular fa-comment"></i> 34</span>
+              <span class="hover:text-green-500"><i class="fa-solid fa-retweet"></i> 156</span>
+              <span class="hover:text-pink-500 text-pink-500 font-bold"><i class="fa-solid fa-heart"></i> 1,420</span>
+              <span class="hover:text-xBlue"><i class="fa-solid fa-chart-column"></i> 5.2万</span>
+              <i class="fa-regular fa-bookmark"></i>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- タイムライン項目 5：推し活ドームツアー全落ち・高額転売注意コミュニティノート -->
+      <article class="p-3 border-b border-xBorder">
+        <div class="flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-white text-base font-bold shrink-0">
+            推
+          </div>
+          <div class="w-full text-xs">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1">
+                <span class="font-bold text-white text-sm">あかり🎀推しが生きがい</span>
+                <i class="fa-solid fa-circle-check text-xBlue"></i>
+                <span class="text-gray-500">@akari_live_03 • 3時間</span>
+              </div>
+              <i class="fa-solid fa-ellipsis text-gray-500"></i>
+            </div>
+            <p class="mt-1 text-gray-200 text-sm leading-relaxed">
+              【求】ドームツアー 東京ドーム 11/24 (日) 2枚<br>
+              【譲】定価＋手数料（＋カフェ奢ります😭）<br><br>
+              全名義全全全全落ちしました号泣😭😭😭<br>
+              FC先行もプレリクもダメだった…どなたか重複している方いらっしゃいませんか…！？ドタキャン絶対にしません。マナー守ります！！拡散お願いします🙏🙏✨
+            </p>
+
+            <!-- コミュニティノート：高額転売警告 -->
+            <div class="mt-2 bg-xCard border border-red-600/50 p-2.5 rounded-xl">
+              <div class="flex items-center gap-1.5 text-red-400 font-bold text-[11px] mb-1">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>コミュニティノート：チケット詐欺注意</span>
+              </div>
+              <p class="text-gray-300 text-[11px]">
+                X上でのチケット個人売買において、PayPay先払いを求めた後にアカウントを削除する詐欺が多発しています。公式リセールをご利用ください。
+              </p>
+            </div>
+
+            <!-- 返信ゾンビBot連鎖 -->
+            <div class="mt-2 bg-gray-950/60 p-2 rounded-xl text-[10px] space-y-1">
+              <div class="flex justify-between text-gray-400">
+                <span class="font-bold text-white">Ticket_Seller_9921 <i class="fa-solid fa-circle-check text-xBlue text-[8px]"></i></span>
+                <span class="text-xs text-xBlue">DMで定価譲渡可能！今すぐ連絡して</span>
+              </div>
+              <div class="flex justify-between text-gray-400">
+                <span class="font-bold text-white">Crypto_Bot_X</span>
+                <span>Follow me to get free 0.01 BTC link below 🚀</span>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center mt-3 text-gray-500 text-xs">
+              <span class="hover:text-xBlue"><i class="fa-regular fa-comment"></i> 210</span>
+              <span class="hover:text-green-500 text-green-500 font-bold"><i class="fa-solid fa-retweet"></i> 2,840</span>
+              <span class="hover:text-pink-500"><i class="fa-regular fa-heart"></i> 640</span>
+              <span class="hover:text-xBlue"><i class="fa-solid fa-chart-column"></i> 14.9万</span>
+              <i class="fa-regular fa-bookmark"></i>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- タイムライン項目 6：1限「楽単」のはずが抜き打ちテストで全休消滅 -->
+      <article class="p-3 border-b border-xBorder hover:bg-white/[0.01] transition">
+        <div class="flex gap-3">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover shrink-0" />
+          <div class="w-full text-xs">
+            <div class="flex items-center gap-1">
+              <span class="font-bold text-white text-sm">かな@限界大学生</span>
+              <span class="text-gray-500">@kana_univ_02 • 4時間</span>
+            </div>
+            <p class="mt-1 text-gray-200 text-sm leading-relaxed">
+              先輩から「この講義出席取らんしテスト前だけノート見ればS単余裕👍」って聞いてた1限で、今日いきなり教授が『抜き打ち小テスト（配点30%）』やり始めて教室中から絶望の悲鳴上がって草ｗｗｗｗｗｗｗｗｗ<br>
+              寝坊してサボった私のS単計画と全休が終わりを迎えましたさようなら。
+            </p>
+
+            <div class="flex justify-between items-center mt-3 text-gray-500 text-xs">
+              <span class="hover:text-xBlue"><i class="fa-regular fa-comment"></i> 95</span>
+              <span class="hover:text-green-500"><i class="fa-solid fa-retweet"></i> 410</span>
+              <span class="hover:text-pink-500 text-pink-500 font-bold"><i class="fa-solid fa-heart"></i> 3,920</span>
+              <span class="hover:text-xBlue"><i class="fa-solid fa-chart-column"></i> 9.1万</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- タイムライン項目 7：スポンサー広告（就活AIツール・タイムセール） -->
+      <article class="p-3 border-b border-xBorder bg-purple-950/20">
+        <div class="flex items-center gap-2 text-xs text-gray-500 mb-1 ml-6">
+          <i class="fa-solid fa-bolt text-yellow-400"></i>
+          <span>プロモーション • タイムセール中</span>
+        </div>
+
+        <div class="flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center text-white font-bold shrink-0">
+            AI
+          </div>
+          <div class="w-full text-xs">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1">
+                <span class="font-bold text-white text-sm">ES Maker AI 【26卒・27卒】</span>
+                <i class="fa-solid fa-circle-check text-xBlue"></i>
+                <span class="text-gray-500">@es_maker_ai</span>
+              </div>
+              <span class="bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded animate-pulse-fast">残り03:42</span>
+            </div>
+            <p class="mt-1 text-gray-200 text-sm">
+              「ガクチカがない…」「志望動機が書けない…」3分で通過率94%のESを自動生成！今なら学割70%OFF！
+            </p>
+
+            <!-- プロモーションカード -->
+            <div class="mt-2 border border-purple-500/40 rounded-2xl overflow-hidden bg-xCard flex flex-col sm:flex-row">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=80" class="sm:w-36 h-28 object-cover" />
+              <div class="p-2.5 flex flex-col justify-between">
+                <div>
+                  <p class="font-bold text-white text-xs">内定者3万人のデータでAIがあなたのESを添削</p>
+                  <p class="text-[10px] text-gray-400 mt-1">大手コンサル・IT・商社対応</p>
+                </div>
+                <button class="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs py-1.5 px-3 rounded-xl mt-2 w-full text-center shadow">今すぐ無料で試す</button>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center mt-3 text-gray-500 text-xs">
+              <span class="hover:text-xBlue"><i class="fa-regular fa-comment"></i> 64</span>
+              <span class="hover:text-green-500"><i class="fa-solid fa-retweet"></i> 320</span>
+              <span class="hover:text-pink-500"><i class="fa-regular fa-heart"></i> 1.8k</span>
+              <span class="hover:text-xBlue"><i class="fa-solid fa-chart-column"></i> 8.4万</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- タイムライン項目 8：サークル部費紛失ドラマの暴露引用ポスト -->
+      <article class="p-3 border-b border-xBorder hover:bg-white/[0.01] transition">
+        <div class="flex gap-3">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover shrink-0" />
+          <div class="w-full text-xs">
+            <div class="flex items-center gap-1">
+              <span class="font-bold text-white text-sm">りな@裏アカ</span>
+              <span class="text-gray-500">@rina_sub_00 • 5時間</span>
+            </div>
+            <p class="mt-1 text-gray-200 text-sm leading-relaxed">
+              学祭の売り上げ数万円消えた件、会計の〇〇くんがパチンコで溶かしたってマジ？？？？無理すぎるんだがｗｗｗｗｗ<br>
+              幹部陣LINE荒れすぎて通知止まらんｗｗｗ
+            </p>
+
+            <!-- 引用元ツイート -->
+            <div class="mt-2 p-2.5 rounded-2xl border border-xBorder bg-xCard">
+              <div class="flex items-center gap-1 text-[11px] mb-1">
+                <span class="font-bold text-white">〇〇サークル代表</span>
+                <span class="text-gray-500">@univ_club_official</span>
+              </div>
+              <p class="text-gray-400 text-[11px]">【お詫びとご報告】学年費および学祭売上金の管理状況に関する重要なお知らせとお詫びについて</p>
+            </div>
+
+            <div class="flex justify-between items-center mt-3 text-gray-500 text-xs">
+              <span class="hover:text-xBlue"><i class="fa-regular fa-comment"></i> 310</span>
+              <span class="hover:text-green-500 text-green-500 font-bold"><i class="fa-solid fa-retweet"></i> 1,980</span>
+              <span class="hover:text-pink-500 text-pink-500 font-bold"><i class="fa-solid fa-heart"></i> 7,120</span>
+              <span class="hover:text-xBlue"><i class="fa-solid fa-chart-column"></i> 22.4万</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </main>
+
+    <!-- 右サイドバー（過密なトレンド＋ニュース＋おすすめユーザー） -->
+    <aside class="w-80 p-3 hidden lg:block sticky top-8 h-[calc(100vh-32px)] overflow-y-auto no-scrollbar space-y-3">
+      
+      <!-- 検索バー -->
+      <div class="relative">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-500 text-sm"></i>
+        <input type="text" placeholder="キーワード検索（例: #スタバ新作）" class="w-full bg-xCard text-white text-xs rounded-full pl-9 pr-4 py-2.5 border border-transparent focus:border-xBlue focus:outline-none" />
+      </div>
+
+      <!-- 今起きていること（トレンド爆盛り） -->
+      <div class="bg-xCard border border-xBorder rounded-2xl p-3 space-y-3">
+        <div class="flex justify-between items-center">
+          <h2 class="font-extrabold text-sm text-white">日本のトレンド</h2>
+          <i class="fa-solid fa-gear text-gray-500 text-xs cursor-pointer"></i>
+        </div>
+
+        <div class="space-y-2.5 text-xs">
+          <!-- トレンド 1 -->
+          <div class="hover:bg-gray-800/40 p-1 rounded cursor-pointer">
+            <div class="flex justify-between text-[10px] text-gray-500">
+              <span>1 • カフェ・トレンド</span>
+              <span class="text-red-500 font-bold">🔥 急上昇</span>
+            </div>
+            <p class="font-bold text-white text-sm">#スタバ新作</p>
+            <p class="text-[10px] text-gray-500">ほうじ茶フラペ / カスタム / 全休</p>
+            <span class="text-[10px] text-xBlue">124,512件のポスト</span>
+          </div>
+
+          <!-- トレンド 2 -->
+          <div class="hover:bg-gray-800/40 p-1 rounded cursor-pointer">
+            <div class="flex justify-between text-[10px] text-gray-500">
+              <span>2 • 就職活動 • トレンド</span>
+              <span class="bg-blue-900 text-blue-300 px-1 rounded">26卒</span>
+            </div>
+            <p class="font-bold text-white text-sm">ES締め切り</p>
+            <p class="text-[10px] text-gray-500">ガクチカ / Webテスト / 面接辞退</p>
+            <span class="text-[10px] text-gray-500">45,102件のポスト</span>
+          </div>
+
+          <!-- トレンド 3 -->
+          <div class="hover:bg-gray-800/40 p-1 rounded cursor-pointer">
+            <div class="flex justify-between text-[10px] text-gray-500">
+              <span>3 • エンタメ • トレンド</span>
+            </div>
+            <p class="font-bold text-white text-sm">ドームツアー当選</p>
+            <p class="text-[10px] text-gray-500">全落ち / トレード / 名義貸し</p>
+            <span class="text-[10px] text-gray-500">89,201件のポスト</span>
+          </div>
+
+          <!-- トレンド 4 -->
+          <div class="hover:bg-gray-800/40 p-1 rounded cursor-pointer">
+            <div class="flex justify-between text-[10px] text-gray-500">
+              <span>4 • 大学生活 • トレンド</span>
+            </div>
+            <p class="font-bold text-white text-sm">単位落破宣言</p>
+            <p class="text-[10px] text-gray-500">持ち込み不可 / 履修登録 / 過去問</p>
+            <span class="text-[10px] text-gray-500">18,340件のポスト</span>
+          </div>
+        </div>
+
+        <button class="text-xBlue text-xs hover:underline pt-1">さらに表示</button>
+      </div>
+
+      <!-- おすすめユーザー（フォロー誘導過剰） -->
+      <div class="bg-xCard border border-xBorder rounded-2xl p-3 space-y-3">
+        <h2 class="font-extrabold text-sm text-white">おすすめユーザー</h2>
+        
+        <div class="flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=50&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full object-cover" />
+            <div>
+              <p class="font-bold text-white flex items-center gap-0.5">
+                みく@就活カフェ
+                <i class="fa-solid fa-circle-check text-xBlue text-[10px]"></i>
+              </p>
+              <p class="text-gray-500 text-[10px]">@miku_cafe_life</p>
+            </div>
+          </div>
+          <button class="bg-white hover:bg-gray-200 text-black font-bold text-xs px-3 py-1 rounded-full">フォロー</button>
+        </div>
+
+        <div class="flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-800 flex items-center justify-center text-white text-xs font-bold">
+              ☕️
+            </div>
+            <div>
+              <p class="font-bold text-white">スタバ非公式カスタムbot</p>
+              <p class="text-gray-500 text-[10px]">@starba_custom_jp</p>
+            </div>
+          </div>
+          <button class="bg-white hover:bg-gray-200 text-black font-bold text-xs px-3 py-1 rounded-full">フォロー</button>
+        </div>
+      </div>
+
+      <!-- フッターリンク群 -->
+      <footer class="text-[10px] text-gray-600 space-x-2 leading-relaxed">
+        <a href="#" class="hover:underline">利用規約</a>
+        <a href="#" class="hover:underline">プライバシーポリシー</a>
+        <a href="#" class="hover:underline">クッキーのポリシー</a>
+        <a href="#" class="hover:underline">広告情報</a>
+        <span>© 2026 X Corp. Demo</span>
+      </footer>
+
+    </aside>
+
+  </div>
+
+</body>
+</html>
